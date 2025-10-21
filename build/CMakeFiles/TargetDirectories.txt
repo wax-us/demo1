@@ -1,0 +1,3 @@
+/home/krmms/demo1/build/CMakeFiles/rebuild_cache.dir
+/home/krmms/demo1/build/CMakeFiles/edit_cache.dir
+/home/krmms/demo1/build/CMakeFiles/idf_armor.dir
