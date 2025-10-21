@@ -20,8 +20,8 @@ void show_video(cv::VideoCapture video){
             std::cout << "视频播放结束！" << std::endl;
             break;
         }
-        
-        frame = find_rect(frame);
+        // find_rect(frame);
+        pnp(find_rect(frame),frame);
         if(i==0){
             cv::imshow("视频展示", frame);
             i = 1;

@@ -11,8 +11,10 @@ opencv2/opencv.hpp
 -
 bits/stdc++.h
 -
+cmath
+-
 
-/home/krmms/demo1/src/findRect.cpp
+/home/krmms/demo1/src/pnp.cpp
 idf.h
 /home/krmms/demo1/src/idf.h
 

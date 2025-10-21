@@ -1,25 +1,19 @@
 #include "idf.h"
 
 
-
-
-
-
-cv::Mat find_rect(cv::Mat& frame){
+std::vector<cv::Point2f> find_rect(cv::Mat& frame){
     cv::Mat grey,th;
     std::vector<std::vector<cv::Point>> con1,con2;
     std::vector<cv::Vec4i> h;
     cv::Point2f p[4];//端点数组
     
-
     cv::cvtColor(frame,grey,cv::COLOR_RGB2GRAY);
     cv::threshold(grey,th,75,255,cv::THRESH_BINARY_INV);
     cv::findContours(th,con1,h,3,2);
     cv::cvtColor(th,th,cv::COLOR_GRAY2RGB);
-    
+
     for(int i=0;i<h.size();i++){
         if(h[i][2] == -1){
-            //drawContours(th, con1, i, cv::Scalar(0, 255, 0), 2);
             con2.push_back(con1[i]);
         }
     }
@@ -31,16 +25,19 @@ cv::Mat find_rect(cv::Mat& frame){
     cv::RotatedRect rect = minAreaRect(con2[0]);
 
     rect.points(p);
-
-
     
+    std::vector<cv::Point2f> p_out;
+    p_out.insert(p_out.begin(),p,p+4);
+
+    // for(int i=0;i<4;i++){
+    //     std::cout << p_out[i]<<' ';
+    // }
+    // std::cout << std::endl;
 
 
 
-    //drawContours(th, con2, 0, cv::Scalar(0, 255, 0), 2);
-    //con2.clear();
 
-    return th;
+    return p_out;
 
 
 

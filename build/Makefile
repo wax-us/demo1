@@ -204,6 +204,33 @@ src/loadVideo.cpp.s:
 	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/src/loadVideo.cpp.s
 .PHONY : src/loadVideo.cpp.s
 
+src/pnp.o: src/pnp.cpp.o
+
+.PHONY : src/pnp.o
+
+# target to build an object file
+src/pnp.cpp.o:
+	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/src/pnp.cpp.o
+.PHONY : src/pnp.cpp.o
+
+src/pnp.i: src/pnp.cpp.i
+
+.PHONY : src/pnp.i
+
+# target to preprocess a source file
+src/pnp.cpp.i:
+	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/src/pnp.cpp.i
+.PHONY : src/pnp.cpp.i
+
+src/pnp.s: src/pnp.cpp.s
+
+.PHONY : src/pnp.s
+
+# target to generate assembly for a file
+src/pnp.cpp.s:
+	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/src/pnp.cpp.s
+.PHONY : src/pnp.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -222,6 +249,9 @@ help:
 	@echo "... src/loadVideo.o"
 	@echo "... src/loadVideo.i"
 	@echo "... src/loadVideo.s"
+	@echo "... src/pnp.o"
+	@echo "... src/pnp.i"
+	@echo "... src/pnp.s"
 .PHONY : help
 
 
