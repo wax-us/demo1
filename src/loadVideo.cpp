@@ -20,7 +20,6 @@ void show_video(cv::VideoCapture video){
 
     while(true){
         video >> frame;
-
         if (frame.empty()) {
             std::cout << "视频播放结束！" << std::endl;
             break;
