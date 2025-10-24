@@ -13,6 +13,20 @@ bits/stdc++.h
 -
 cmath
 -
+string
+-
+
+/home/krmms/demo1/main.cpp
+idf.h
+/home/krmms/demo1/idf.h
+
+/home/krmms/demo1/src/findRect.cpp
+idf.h
+/home/krmms/demo1/src/idf.h
+
+/home/krmms/demo1/src/loadVideo.cpp
+idf.h
+/home/krmms/demo1/src/idf.h
 
 /home/krmms/demo1/src/pnp.cpp
 idf.h

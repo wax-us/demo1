@@ -1,30 +1,59 @@
 #include "idf.h"
 
-
+//使用罗德里格旋转公式‌旋转向量 c是要旋转的向量 v是旋转向量 v的长度为旋转角(弧度) 方向为旋转轴
 cv::Mat rotateVector(cv::Mat c,cv::Mat v){
     double angle = cv::norm(v);
     cv::Mat u = v/angle;
     cv::Mat uxc = u.cross(c);
     double upc = u.dot(c);
+    //公式:v′=vcosθ+(k×v)sinθ+k(k⋅v)(1−cosθ)
     return c*std::cos(angle)+uxc*std::sin(angle)+u*upc*(1-std::cos(angle));
 }
 
 
+//计算位姿
+void pnp(std::vector<cv::Point2f> points2d, cv::Mat& frame){
+    
+    // static std::vector<cv::Point2f> last_points2d;
+    // if (last_points2d.empty()) {
+    //     last_points2d = points2d;
+    // } else {
+    //     // 检查点移动距离
+    //     double max_move = 0;
+    //     for (int i = 0; i < 4; i++) {
+    //         double move = cv::norm(points2d[i] - last_points2d[i]);
+    //         max_move = std::max(max_move, move);
+    //     }
+        
+    //     std::cout << "最大点移动距离: " << max_move << " 像素" << std::endl;
+        
+    //     // 如果移动过大，可能检测错误
+    //     if (max_move > 10.0) {
+    //         std::cout << "检测到异常点移动，使用上一帧点" << std::endl;
+    //         points2d = last_points2d;
+    //     } else {
+    //         last_points2d = points2d;
+    //     }
+    // }
 
 
-void pnp(std::vector<cv::Point2f> points2d,cv::Mat& frame){
-    std::vector<cv::Point3f> points3d;//h:130mm/0.13m w:50mm/0.05m
-    float h = 0.13;
-    float w = 0.05;
 
+
+    
+    //h:130mm/0.13m w:50mm/0.05m
+    float w = 0.13;
+    float h = 0.05;
+
+
+    //3d点
+    std::vector<cv::Point3f> points3d;
     points3d.push_back(cv::Point3f(-w/2, h/2, 0));//左上 
     points3d.push_back(cv::Point3f(w/2, h/2, 0));//右上
     points3d.push_back(cv::Point3f(w/2, -h/2, 0));//右下
     points3d.push_back(cv::Point3f(-w/2, -h/2, 0));//左下
     
     
-    cv::Mat rvec,tvec;
-
+    //相机参数
     cv::Mat cameraMat = (cv::Mat_<double>(3, 3) << 
         9.28130989e+02, 0,     3.77572945e+02,
         0,     9.30138391e+02, 2.83892859e+02,
@@ -34,47 +63,57 @@ void pnp(std::vector<cv::Point2f> points2d,cv::Mat& frame){
         -2.54433647e-01, 5.69431382e-01,
         3.65405229e-03, -1.09433818e-03, -1.33846840);//畸变
 
-    cv::solvePnP(points3d,points2d,cameraMat,distCoeffs,rvec,tvec,false, cv::SOLVEPNP_IPPE);
-    //std::cout << rvec.at<double>(0)<<std::endl<< rvec.at<double>(1)<<std::endl<< rvec.at<double>(2)<<std::endl;            
-    //std::cout << tvec<<std::endl;
-
-    //x(1,0,0) y(0,1,0) z(0,0,1)
-    
     double fx = cameraMat.at<double>(0, 0);
     double fy = cameraMat.at<double>(1, 1);
     double cx = cameraMat.at<double>(0, 2);
     double cy = cameraMat.at<double>(1, 2);
 
-    double u = (fx * tvec.at<double>(0)) / tvec.at<double>(2) + cx;
-    double v = (fy * tvec.at<double>(1)) / tvec.at<double>(2) + cy;
-    
-    cv::Mat x = (cv::Mat_<double>(3,1) << 1.0 ,0.0 ,0.0);
-    cv::Mat y = (cv::Mat_<double>(3,1) << 0.0 ,1.0 ,0.0);
-    cv::Mat z = (cv::Mat_<double>(3,1) << 0.0 ,0.0 ,1.0);
+    cv::Mat tvec,rvec;
 
-    cv::Mat rx,ry,rz;
-    rx = rotateVector(x,rvec);
-    ry = rotateVector(y,rvec);
-    rz = rotateVector(z,rvec);
-    //std::cout << cv::norm(rx)<<std::endl;
-    //std::cout << fabs(rx.at<double>(0)) <<' '<< fabs(ry.at<double>(1)) <<' '<< fabs(rz.at<double>(2)) <<std::endl;
+    //pnp解算
+    cv::solvePnP(points3d,points2d,cameraMat,distCoeffs,rvec,tvec,false, cv::SOLVEPNP_IPPE);
+    
+    //获取视频大小
     int width = frame.cols;
     int height = frame.rows;
 
+    //投影
+    //坐标轴上原点与xyz正方向上的单位长度点构成的点集
+    std::vector<cv::Point3f> center3D = {
+        cv::Point3f(0,0,0),
+        cv::Point3f(0.1,0,0),
+        cv::Point3f(0,0.1,0),
+        cv::Point3f(0,0,0.1)
+    };
+    //投影后的点集
+    std::vector<cv::Point2f> projectedPoints;
+    //投影
+    cv::projectPoints(center3D, rvec, tvec, cameraMat, distCoeffs, projectedPoints);
+
+    
+    cv::Point2f endx = projectedPoints[1];
+    cv::Point2f endy = projectedPoints[2];
+    cv::Point2f endz = projectedPoints[3];
+
+    //绘制坐标轴 绿色x轴 蓝色y轴 红色z轴
+    // for(int i=0;i<4;i++){
+    //     std::cout << endx<<' '<<endy<<' '<<endz<<std::endl;
+    // }
+    cv::line(frame, projectedPoints[0], projectedPoints[1], cv::Scalar(0,255,0), 2.5, cv::LINE_AA);
+    cv::line(frame, projectedPoints[0], projectedPoints[2], cv::Scalar(255,0,0), 2.5, cv::LINE_AA);
+    cv::line(frame, projectedPoints[0], projectedPoints[3], cv::Scalar(0,0,255), 2.5, cv::LINE_AA);
+
+    //标注坐标轴
+    cv::Point2f textEndx(endx.x, endx.y+5);
+    cv::Point2f textEndy(endy.x, endy.y+5);
+    cv::Point2f textEndz(endz.x, endz.y+5);
+    cv::putText(frame, "X", textEndx, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(50,255,50),2);
+    cv::putText(frame, "Y", textEndy, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(255,50,50),2);
+    cv::putText(frame, "Z", textEndz, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(50,50,255),2);
+    
     
 
-    double l = cv::norm(tvec);
-    double px = tvec.at<double>(0)+width/2;
-    double py = tvec.at<double>(1)+height/2;
-
-    cv::line(frame, cv::Point(u,v), cv::Point(u+rx.at<double>(0)*50,v+rx.at<double>(1)*50), cv::Scalar(0,255,0));
-    cv::line(frame, cv::Point(u,v), cv::Point(u+ry.at<double>(0)*50,v+ry.at<double>(1)*50), cv::Scalar(255,0,0));
-    cv::line(frame, cv::Point(u,v), cv::Point(u+rz.at<double>(0)*50,v+rz.at<double>(1)*50), cv::Scalar(0,0,255));
-
-
-
-
-
+    
 
     // f1:
     // rvec 长度是旋转弧度, 向量方向是旋转轴
@@ -85,7 +124,6 @@ void pnp(std::vector<cv::Point2f> points2d,cv::Mat& frame){
     // -0.3256612778486115;       y
     // 2.728861933492724]         z
     // x右为正, y下为正, z前为正
-
 
 }
 
