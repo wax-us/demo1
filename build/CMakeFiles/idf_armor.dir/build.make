@@ -70,9 +70,22 @@ CMakeFiles/idf_armor.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/idf_armor.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/krmms/demo1/main.cpp -o CMakeFiles/idf_armor.dir/main.cpp.s
 
+CMakeFiles/idf_armor.dir/src/draw.cpp.o: CMakeFiles/idf_armor.dir/flags.make
+CMakeFiles/idf_armor.dir/src/draw.cpp.o: ../src/draw.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/idf_armor.dir/src/draw.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/idf_armor.dir/src/draw.cpp.o -c /home/krmms/demo1/src/draw.cpp
+
+CMakeFiles/idf_armor.dir/src/draw.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/idf_armor.dir/src/draw.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/krmms/demo1/src/draw.cpp > CMakeFiles/idf_armor.dir/src/draw.cpp.i
+
+CMakeFiles/idf_armor.dir/src/draw.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/idf_armor.dir/src/draw.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/krmms/demo1/src/draw.cpp -o CMakeFiles/idf_armor.dir/src/draw.cpp.s
+
 CMakeFiles/idf_armor.dir/src/findRect.cpp.o: CMakeFiles/idf_armor.dir/flags.make
 CMakeFiles/idf_armor.dir/src/findRect.cpp.o: ../src/findRect.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/idf_armor.dir/src/findRect.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/idf_armor.dir/src/findRect.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/idf_armor.dir/src/findRect.cpp.o -c /home/krmms/demo1/src/findRect.cpp
 
 CMakeFiles/idf_armor.dir/src/findRect.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/idf_armor.dir/src/findRect.cpp.s: cmake_force
 
 CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o: CMakeFiles/idf_armor.dir/flags.make
 CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o: ../src/loadVideo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o -c /home/krmms/demo1/src/loadVideo.cpp
 
 CMakeFiles/idf_armor.dir/src/loadVideo.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/idf_armor.dir/src/loadVideo.cpp.s: cmake_force
 
 CMakeFiles/idf_armor.dir/src/pnp.cpp.o: CMakeFiles/idf_armor.dir/flags.make
 CMakeFiles/idf_armor.dir/src/pnp.cpp.o: ../src/pnp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/idf_armor.dir/src/pnp.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/idf_armor.dir/src/pnp.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/idf_armor.dir/src/pnp.cpp.o -c /home/krmms/demo1/src/pnp.cpp
 
 CMakeFiles/idf_armor.dir/src/pnp.cpp.i: cmake_force
@@ -112,6 +125,7 @@ CMakeFiles/idf_armor.dir/src/pnp.cpp.s: cmake_force
 # Object files for target idf_armor
 idf_armor_OBJECTS = \
 "CMakeFiles/idf_armor.dir/main.cpp.o" \
+"CMakeFiles/idf_armor.dir/src/draw.cpp.o" \
 "CMakeFiles/idf_armor.dir/src/findRect.cpp.o" \
 "CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o" \
 "CMakeFiles/idf_armor.dir/src/pnp.cpp.o"
@@ -120,6 +134,7 @@ idf_armor_OBJECTS = \
 idf_armor_EXTERNAL_OBJECTS =
 
 idf_armor: CMakeFiles/idf_armor.dir/main.cpp.o
+idf_armor: CMakeFiles/idf_armor.dir/src/draw.cpp.o
 idf_armor: CMakeFiles/idf_armor.dir/src/findRect.cpp.o
 idf_armor: CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o
 idf_armor: CMakeFiles/idf_armor.dir/src/pnp.cpp.o
@@ -140,7 +155,7 @@ idf_armor: /usr/local/opencv4.5.4/lib/libopencv_flann.so.4.5.4
 idf_armor: /usr/local/opencv4.5.4/lib/libopencv_imgproc.so.4.5.4
 idf_armor: /usr/local/opencv4.5.4/lib/libopencv_core.so.4.5.4
 idf_armor: CMakeFiles/idf_armor.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable idf_armor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable idf_armor"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/idf_armor.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

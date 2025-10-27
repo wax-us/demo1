@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/krmms/demo1/main.cpp" "/home/krmms/demo1/build/CMakeFiles/idf_armor.dir/main.cpp.o"
+  "/home/krmms/demo1/src/draw.cpp" "/home/krmms/demo1/build/CMakeFiles/idf_armor.dir/src/draw.cpp.o"
   "/home/krmms/demo1/src/findRect.cpp" "/home/krmms/demo1/build/CMakeFiles/idf_armor.dir/src/findRect.cpp.o"
   "/home/krmms/demo1/src/loadVideo.cpp" "/home/krmms/demo1/build/CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o"
   "/home/krmms/demo1/src/pnp.cpp" "/home/krmms/demo1/build/CMakeFiles/idf_armor.dir/src/pnp.cpp.o"

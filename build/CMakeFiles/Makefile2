@@ -74,12 +74,12 @@ clean: CMakeFiles/idf_armor.dir/clean
 CMakeFiles/idf_armor.dir/all:
 	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/depend
 	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target idf_armor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/krmms/demo1/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target idf_armor"
 .PHONY : CMakeFiles/idf_armor.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/idf_armor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/krmms/demo1/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/krmms/demo1/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/idf_armor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/krmms/demo1/build/CMakeFiles 0
 .PHONY : CMakeFiles/idf_armor.dir/rule

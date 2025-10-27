@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/idf_armor.dir/main.cpp.o"
+  "CMakeFiles/idf_armor.dir/src/draw.cpp.o"
   "CMakeFiles/idf_armor.dir/src/findRect.cpp.o"
   "CMakeFiles/idf_armor.dir/src/loadVideo.cpp.o"
   "CMakeFiles/idf_armor.dir/src/pnp.cpp.o"

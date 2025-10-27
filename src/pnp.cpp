@@ -1,43 +1,7 @@
 #include "idf.h"
 
-//使用罗德里格旋转公式‌旋转向量 c是要旋转的向量 v是旋转向量 v的长度为旋转角(弧度) 方向为旋转轴
-cv::Mat rotateVector(cv::Mat c,cv::Mat v){
-    double angle = cv::norm(v);
-    cv::Mat u = v/angle;
-    cv::Mat uxc = u.cross(c);
-    double upc = u.dot(c);
-    //公式:v′=vcosθ+(k×v)sinθ+k(k⋅v)(1−cosθ)
-    return c*std::cos(angle)+uxc*std::sin(angle)+u*upc*(1-std::cos(angle));
-}
-
-
-//计算位姿
-void pnp(std::vector<cv::Point2f> points2d, cv::Mat& frame){
-    
-    // static std::vector<cv::Point2f> last_points2d;
-    // if (last_points2d.empty()) {
-    //     last_points2d = points2d;
-    // } else {
-    //     // 检查点移动距离
-    //     double max_move = 0;
-    //     for (int i = 0; i < 4; i++) {
-    //         double move = cv::norm(points2d[i] - last_points2d[i]);
-    //         max_move = std::max(max_move, move);
-    //     }
-        
-    //     std::cout << "最大点移动距离: " << max_move << " 像素" << std::endl;
-        
-    //     // 如果移动过大，可能检测错误
-    //     if (max_move > 10.0) {
-    //         std::cout << "检测到异常点移动，使用上一帧点" << std::endl;
-    //         points2d = last_points2d;
-    //     } else {
-    //         last_points2d = points2d;
-    //     }
-    // }
-
-
-
+//计算位姿 并返回物体坐标轴原点与x,y,z三轴在单位长度处的点的二维投影
+std::vector<cv::Point2f> pnp(cv::Mat& frame, std::vector<cv::Point2f> points2d){
 
     
     //h:130mm/0.13m w:50mm/0.05m
@@ -79,42 +43,21 @@ void pnp(std::vector<cv::Point2f> points2d, cv::Mat& frame){
 
     //投影
     //坐标轴上原点与xyz正方向上的单位长度点构成的点集
-    std::vector<cv::Point3f> center3D = {
-        cv::Point3f(0,0,0),
-        cv::Point3f(0.1,0,0),
-        cv::Point3f(0,0.1,0),
-        cv::Point3f(0,0,0.1)
-    };
+    std::vector<cv::Point3f> center3D;
+    center3D.push_back(cv::Point3f(0,0,0));
+    center3D.push_back(cv::Point3f(0.1,0,0));
+    center3D.push_back(cv::Point3f(0,0.1,0));
+    center3D.push_back(cv::Point3f(0,0,0.1));
+
     //投影后的点集
     std::vector<cv::Point2f> projectedPoints;
     //投影
     cv::projectPoints(center3D, rvec, tvec, cameraMat, distCoeffs, projectedPoints);
-
     
-    cv::Point2f endx = projectedPoints[1];
-    cv::Point2f endy = projectedPoints[2];
-    cv::Point2f endz = projectedPoints[3];
-
-    //绘制坐标轴 绿色x轴 蓝色y轴 红色z轴
-    // for(int i=0;i<4;i++){
-    //     std::cout << endx<<' '<<endy<<' '<<endz<<std::endl;
-    // }
-    cv::line(frame, projectedPoints[0], projectedPoints[1], cv::Scalar(0,255,0), 2.5, cv::LINE_AA);
-    cv::line(frame, projectedPoints[0], projectedPoints[2], cv::Scalar(255,0,0), 2.5, cv::LINE_AA);
-    cv::line(frame, projectedPoints[0], projectedPoints[3], cv::Scalar(0,0,255), 2.5, cv::LINE_AA);
-
-    //标注坐标轴
-    cv::Point2f textEndx(endx.x, endx.y+5);
-    cv::Point2f textEndy(endy.x, endy.y+5);
-    cv::Point2f textEndz(endz.x, endz.y+5);
-    cv::putText(frame, "X", textEndx, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(50,255,50),2);
-    cv::putText(frame, "Y", textEndy, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(255,50,50),2);
-    cv::putText(frame, "Z", textEndz, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(50,50,255),2);
+    return projectedPoints;
     
     
-
     
-
     // f1:
     // rvec 长度是旋转弧度, 向量方向是旋转轴
     // rvec[2.018209159662734;    rx

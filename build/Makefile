@@ -150,6 +150,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/draw.o: src/draw.cpp.o
+
+.PHONY : src/draw.o
+
+# target to build an object file
+src/draw.cpp.o:
+	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/src/draw.cpp.o
+.PHONY : src/draw.cpp.o
+
+src/draw.i: src/draw.cpp.i
+
+.PHONY : src/draw.i
+
+# target to preprocess a source file
+src/draw.cpp.i:
+	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/src/draw.cpp.i
+.PHONY : src/draw.cpp.i
+
+src/draw.s: src/draw.cpp.s
+
+.PHONY : src/draw.s
+
+# target to generate assembly for a file
+src/draw.cpp.s:
+	$(MAKE) -f CMakeFiles/idf_armor.dir/build.make CMakeFiles/idf_armor.dir/src/draw.cpp.s
+.PHONY : src/draw.cpp.s
+
 src/findRect.o: src/findRect.cpp.o
 
 .PHONY : src/findRect.o
@@ -243,6 +270,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/draw.o"
+	@echo "... src/draw.i"
+	@echo "... src/draw.s"
 	@echo "... src/findRect.o"
 	@echo "... src/findRect.i"
 	@echo "... src/findRect.s"
